@@ -11,8 +11,8 @@
 #define lin  2
 #define ende  0x27
 
-#define WIFI_NAME "A&MLuans"
-#define WIFI_PASS "a&mluans000408"
+#define WIFI_NAME "INTELBRAS"
+#define WIFI_PASS "12345678"
 
 #define sensor_dht11 D9
 #define sensor_dht22 D2
@@ -48,7 +48,6 @@ void setup() {
   lcd.setCursor(0,0);
   lcd.print("LIGANDO MQ2");
 
-
   Serial.println("Web Server Iniciado");
 
   Serial.println("MQ2 warming up!");
@@ -76,7 +75,7 @@ void handleRoot(){
   json += "\"Temperatura\":" + String(t22) + ",";
   json += "\"Umidade\":" + String(h22) + ",";
   json += "\"MQ2 Value\":" + String(MQ2Value) + ",";
-  json += "\"Status\":\"" + String((t22 > 35.0 || MQ2Value > 300) ? "Warning" : "OK") + "\"";
+  json += "\"Status\":\"" + String((t22 > 35.0 || MQ2Value > 400) ? "Warning" : "OK") + "\"";
   json += "}";
 
   server.send(200, "application/json", json);
@@ -148,7 +147,7 @@ void screenReadingSensor(){
 
 bool screenWarning() {
   const float TEMPERATURA_LIMITE = 35.0; 
-  const int MQ2_LIMITE = 300;            
+  const int MQ2_LIMITE = 400;            
 
   bool alertaTemperatura = (t22 > TEMPERATURA_LIMITE); 
   bool alertaFumaca = (MQ2Value > MQ2_LIMITE);
@@ -185,7 +184,7 @@ bool screenWarning() {
 
 String determineStatus() {
   const float TEMPERATURA_LIMITE = 35.0; 
-  const int MQ2_LIMITE = 300;
+  const int MQ2_LIMITE = 400;
 
   bool alertaTemperatura = (t22 > TEMPERATURA_LIMITE);
   bool alertaFumaca = (MQ2Value > MQ2_LIMITE);
