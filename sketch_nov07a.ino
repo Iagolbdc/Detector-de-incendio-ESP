@@ -11,7 +11,7 @@
 #define lin  2
 #define ende  0x27
 
-#define WIFI_NAME "INTELBRAS"
+#define WIFI_NAME "iago"
 #define WIFI_PASS "12345678"
 
 #define sensor_dht11 D9
@@ -93,7 +93,7 @@ void initWifi(String wname, String wpass){
       Serial.println("."); 
   }
 
-  if (!MDNS.begin("esp8266-device")) {
+  if (!MDNS.begin("esp8266-device", WiFi.localIP())) {
     Serial.println("Error setting up MDNS responder!");
     while (1) { delay(1000); }
   }
@@ -147,7 +147,7 @@ void screenReadingSensor(){
 
 bool screenWarning() {
   const float TEMPERATURA_LIMITE = 35.0; 
-  const int MQ2_LIMITE = 400;            
+  const int MQ2_LIMITE = 500;            
 
   bool alertaTemperatura = (t22 > TEMPERATURA_LIMITE); 
   bool alertaFumaca = (MQ2Value > MQ2_LIMITE);
